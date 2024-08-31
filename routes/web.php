@@ -23,10 +23,11 @@ use App\Http\Controllers\UserController;
 
 Auth::routes();
 
+
 Route::get('/users', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get("users/list",[UserController::class,"list"])->middleware("auth")->name("list");
-Route::get("users/edit/{user}",[UserController::class,"edit"])->middleware("auth")->name("edit");
-Route::post("users/update/{user}",[UserController::class,"update"])->middleware("auth")->name("update");
+Route::get("users/list",[UserController::class,"list"])->middleware(["auth"])->name("list");
+Route::get("users/edit/{user}",[UserController::class,"edit"])->middleware(["auth","IsManager"])->name("edit");
+Route::post("users/update/{user}",[UserController::class,"update"])->middleware(["auth","IsManager"])->name("update");
 Route::redirect("/","login");
 
 
